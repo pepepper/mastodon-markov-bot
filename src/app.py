@@ -18,6 +18,7 @@ def worker():
     # 学習
     domain = config_ini['read']['domain']
     read_access_token = config_ini['read']['access_token']
+    write_domain = config_ini['write']['domain']
     write_access_token = config_ini['write']['access_token']
 
     account_info = mastodonTool.get_account_info(domain, read_access_token)
@@ -37,7 +38,7 @@ def worker():
         sentence = re.sub(r'(:.*?:)', r' \1 ', sentence)
         print(sentence)
     try:
-        mastodonTool.post_toot(domain, write_access_token, {"status": sentence})
+        mastodonTool.post_toot(write_domain, write_access_token, {"status": sentence})
     except Exception as e:
         print("投稿エラー: {}".format(e))
 
